@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -104,7 +104,7 @@
 <meta property="og:url" content="http://nevermorph.github.io/2017/06/18/OpenFOAM中的Q准则/index.html">
 <meta property="og:site_name" content="nevermorph-&gt;CFD">
 <meta property="og:description" content="#OpenFOAM中涡判定准则Q的计算OpenFOAM中的自带了一个涡的提取方法，在OpenFOAM4.X的版本输入1$ postProcess -func Q 即可以得到速度梯度$\nabla \mathbf{U}$的二阶不变量，其定义为:$$Q = \frac{1}{2}(\left \lVert \mathbf{W} \right \rVert^2 -\left \lVert \mathbf">
-<meta property="og:updated_time" content="2017-07-09T15:51:09.068Z">
+<meta property="og:updated_time" content="2017-07-14T16:52:58.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenFOAM中涡判定准则Q的计算">
 <meta name="twitter:description" content="#OpenFOAM中涡判定准则Q的计算OpenFOAM中的自带了一个涡的提取方法，在OpenFOAM4.X的版本输入1$ postProcess -func Q 即可以得到速度梯度$\nabla \mathbf{U}$的二阶不变量，其定义为:$$Q = \frac{1}{2}(\left \lVert \mathbf{W} \right \rVert^2 -\left \lVert \mathbf">
@@ -115,8 +115,8 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":true,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -355,6 +355,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/06/18/OpenFOAM中的Q准则/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/06/18/OpenFOAM中的Q准则/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -388,7 +399,7 @@
 
       
         <h2 id="OpenFOAM中涡判定准则Q的计算"><a href="#OpenFOAM中涡判定准则Q的计算" class="headerlink" title="#OpenFOAM中涡判定准则Q的计算"></a>#OpenFOAM中涡判定准则Q的计算</h2><p>OpenFOAM中的自带了一个涡的提取方法，在OpenFOAM4.X的版本输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ postProcess -func Q</div></pre></td></tr></table></figure></p>
-<p>即可以得到速度梯度$\nabla \mathbf{U}$的二阶不变量，其定义为:<br>$$Q = \frac{1}{2}(\left \lVert \mathbf{W} \right \rVert^2 -\left \lVert \mathbf{S} \right \rVert^2)　\tag{1}$$<br>其中<br>$$\mathbf{W} = \frac{1}{2} \Big( \nabla \mathbf{U} - (\nabla \mathbf{U}) ^{\mathrm{T}} \Big ) \tag{2} $$<br>$$\left \lVert \mathbf{W}\right \rVert = (\mathbf{W}:\mathbf{W})^{1/2} \tag{3} $$<br>$$\mathbf{S} = \frac{1}{2} \Big ( \nabla \mathbf{U} + (\nabla \mathbf{U}) ^{\mathrm{T}} \Big ) \tag{4} $$<br>$$\left \lVert \mathbf{S}\right \rVert = (\mathbf{S}:\mathbf{S})^{1/2} \tag{5}$$<br>而我们观察OpenFOAM中的代码<br>进入求OpenFOAM中求Q的代码所在位置并打开:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> <span class="variable">$FOAM_SRC</span>/functionObjects/field/Q</div><div class="line">$ vim Q.C</div></pre></td></tr></table></figure></p>
+<p>即可以得到速度梯度$\nabla \mathbf{U}$的二阶不变量，其定义为:<br>$$Q = \frac{1}{2}(\left \lVert \mathbf{W} \right \rVert^2 -\left \lVert \mathbf{S} \right \rVert^2)　\tag{1}$$<br>其中<br>$$\mathbf{W} = \frac{1}{2} \Big( \nabla \mathbf{U} - (\nabla \mathbf{U}) ^{\mathrm{T}} \Big ) \tag{2} $$<br>$$\left \lVert \mathbf{W}\right \rVert = (\mathbf{W}:\mathbf{W})^{1/2} \tag{3} $$<br>$$\mathbf{S} = \frac{1}{2} \Big ( \nabla \mathbf{U} + (\nabla \mathbf{U}) ^{\mathrm{T}} \Big ) \tag{4} $$<br>$$\left \lVert \mathbf{S}\right \rVert = (\mathbf{S}:\mathbf{S})^{1/2} \tag{5}$$<br>而我们观察OpenFOAM中的代码<br><a id="more"></a><br>进入求OpenFOAM中求Q的代码所在位置并打开:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> <span class="variable">$FOAM_SRC</span>/functionObjects/field/Q</div><div class="line">$ vim Q.C</div></pre></td></tr></table></figure></p>
 <p>我们可以看到:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">bool</span> Foam::functionObjects::Q::calc()</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (foundObject&lt;volVectorField&gt;(fieldName_))</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">const</span> volVectorField&amp; U = lookupObject&lt;volVectorField&gt;(fieldName_);</div><div class="line">        <span class="keyword">const</span> tmp&lt;volTensorField&gt; tgradU(fvc::grad(U));</div><div class="line">        <span class="keyword">const</span> volTensorField&amp; gradU = tgradU();</div><div class="line">        <span class="keyword">return</span> store</div><div class="line">        (</div><div class="line">            resultName_,</div><div class="line">            <span class="number">0.5</span>*(sqr(tr(gradU)) - tr(((gradU) &amp; (gradU))))</div><div class="line">        );</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>下面我们可以推导OpenFOAM中的方法与上述公式其实是一样的<br>$$<br>\nabla \mathbf{U}=<br>  \left (<br>  \begin{matrix}<br>   \frac{ \partial{u}}{ \partial{x}} &amp; \frac{ \partial{u}}{ \partial{y}} &amp; \frac{ \partial{u}}{ \partial{z}} \\<br>   \frac{ \partial{v}}{ \partial{x}} &amp; \frac{ \partial{v}}{ \partial{y}} &amp; \frac{ \partial{v}}{ \partial{z}} \\<br>   \frac{ \partial{w}}{ \partial{x}} &amp; \frac{ \partial{w}}{ \partial{y}} &amp; \frac{ \partial{w}}{ \partial{z}}<br>  \end{matrix}<br>  \right )<br>  \tag{6}<br>$$<br>将(6)代入(2)有:<br>$$<br>\mathbf{W}= \frac{1}{2}<br>  \left (<br>  \begin{matrix}<br>    &amp; \frac{ \partial{u}}{ \partial{y}} - \frac{ \partial{v}}{ \partial{x}} &amp; \frac{ \partial{u}}{ \partial{z}} - \frac{ \partial{w}}{ \partial{x}}\\<br>   \frac{ \partial{v}}{ \partial{x}} - \frac{ \partial{u}}{ \partial{y}}&amp;  &amp; \frac{ \partial{v}}{ \partial{z}} - \frac{ \partial{w}}{ \partial{x}}\\<br>   \frac{ \partial{w}}{ \partial{x}} - \frac{ \partial{u}}{ \partial{z}}&amp; \frac{ \partial{w}}{ \partial{y}} - \frac{ \partial{v}}{ \partial{z}} &amp;<br>  \end{matrix}<br>  \right )<br>  \tag{7}<br>$$<br>同理<br>$$<br> \mathbf{S} = \frac{1}{2}<br>  \left (<br>  \begin{matrix}<br>    \frac{ \partial{u}}{ \partial{x}} + \frac{ \partial{u}}{ \partial{x}} &amp; \frac{ \partial{u}}{ \partial{y}} + \frac{ \partial{v}}{ \partial{x}} &amp; \frac{ \partial{u}}{ \partial{z}} + \frac{ \partial{w}}{ \partial{x}}\\<br>   \frac{ \partial{v}}{ \partial{x}} + \frac{ \partial{u}}{ \partial{y}}&amp; \frac{ \partial{v}}{ \partial{y}} + \frac{ \partial{v}}{ \partial{y}} &amp; \frac{ \partial{v}}{ \partial{z}} + \frac{ \partial{w}}{ \partial{x}}\\<br>   \frac{ \partial{w}}{ \partial{x}} + \frac{ \partial{u}}{ \partial{z}}&amp; \frac{ \partial{w}}{ \partial{y}} + \frac{ \partial{v}}{ \partial{z}} &amp; \frac{ \partial{w}}{ \partial{z}} + \frac{ \partial{w}}{ \partial{z}}<br>  \end{matrix}<br>  \right )<br>  \tag{8}<br>$$<br>代入(1)那么有:<br>$$<br>Q = \frac{1}{2}(\frac{1}{4}(-2\times 2\times 2(\frac{\partial{u}}{\partial{y}} \frac{\partial{v}}{\partial{x}} +<br>\frac{\partial{u}}{\partial{z}} \frac{\partial{w}}{\partial{x}} +<br>\frac{\partial{v}}{\partial{z}} \frac{\partial{w}}{\partial{y}})<br>-2^{2}(\frac{\partial{u^{2}}}{\partial{x^{2}}} +<br>\frac{\partial{v^{2}}}{\partial{y^{2}}} +<br>\frac{\partial{w^{2}}}{\partial{z^{2}}}<br>)<br>)) =<br>-<br>\frac{\partial{u}}{\partial{y}} \frac{\partial{v}}{\partial{x}} -<br>\frac{\partial{u}}{\partial{z}} \frac{\partial{w}}{\partial{x}} -<br>\frac{\partial{v}}{\partial{z}} \frac{\partial{w}}{\partial{y}} -<br>\frac{1}{2}(<br>\frac{\partial{u^{2}}}{\partial{x^{2}}} +<br>\frac{\partial{v^{2}}}{\partial{y^{2}}} +<br>\frac{\partial{w^{2}}}{\partial{z^{2}}}<br>)<br>\tag{9}<br>$$<br>在代码中为<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">0.5</span>*(sqr(tr(gradU)) - tr(((gradU) &amp; (gradU))))</div></pre></td></tr></table></figure></p>
 <p>用数学表示，即为:<br>$$<br>\frac{1}{2}(tr(\nabla\mathbf{U}))^2 - tr(\nabla\mathbf{U} \cdot \nabla\mathbf{U}) =<br>\frac{1}{2}( (\frac{\partial{u}}{\partial{x}} +<br>\frac{\partial{v}}{\partial{y}} +<br>\frac{\partial{w}}{\partial{z}})^2 ) - (<br>(\frac{\partial{u}}{\partial{x}})^2 +<br>(\frac{\partial{v}}{\partial{y}})^2 +<br>(\frac{\partial{w}}{\partial{z}})^2 +<br>2\frac{\partial{u}}{\partial{y}} \frac{\partial{v}}{\partial{x}} +<br>2\frac{\partial{u}}{\partial{z}} \frac{\partial{w}}{\partial{x}} +<br>2\frac{\partial{v}}{\partial{z}} \frac{\partial{w}}{\partial{y}}<br>)<br>\tag{10}<br>$$<br>可以看到式(10)跟式(9)的结果是相同的，这篇文章详细的推导了在OpenFOAM中的Q准则的实现,可以用来熟悉OpenFOAM的张量实现。</p>
@@ -451,6 +462,13 @@
 
           
   <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -564,6 +582,11 @@
       
 
       
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
 
     </div>
   </aside>
@@ -594,11 +617,6 @@
     </footer>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
 
   </div>
 
@@ -620,6 +638,8 @@
 
   
 
+
+  
 
 
 
@@ -649,6 +669,9 @@
   
   <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
 
   
 
@@ -661,13 +684,6 @@
 
   
   
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
-
-
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
@@ -684,6 +700,26 @@
 
   
 
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://nevermorph.github.io/2017/06/18/OpenFOAM中的Q准则/';
+          this.page.identifier = '2017/06/18/OpenFOAM中的Q准则/';
+          this.page.title = 'OpenFOAM中涡判定准则Q的计算';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
 
   
 
