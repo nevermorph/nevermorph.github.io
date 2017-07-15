@@ -429,22 +429,19 @@
 
       
         
-          
-            <h2 id="OpenFOAM中的LES湍流模型及其插入"><a href="#OpenFOAM中的LES湍流模型及其插入" class="headerlink" title="OpenFOAM中的LES湍流模型及其插入"></a>OpenFOAM中的LES湍流模型及其插入</h2><h2 id="OpenFOAM中湍流模型的分类"><a href="#OpenFOAM中湍流模型的分类" class="headerlink" title="OpenFOAM中湍流模型的分类"></a>OpenFOAM中湍流模型的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，[Lund][1]给出了一个隐式滤波的定义方法:<br><em>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中</em>。</p>
-<h2 id="隐式LES与RANS在代码上的区别"><a href="#隐式LES与RANS在代码上的区别" class="headerlink" title="隐式LES与RANS在代码上的区别"></a>隐式LES与RANS在代码上的区别</h2><p>根据这段话实际上LES在代码的植入上只需要修改N-S方程的扩散项即可，<a href="http://www.tfd.chalmers.se/~lada/postscript_files/solids-and-fluids_turbulent-flow_turbulence-modelling.pdf" target="_blank" rel="external">Lars Davidson</a>[187-188]教授也提到：<br><em>任何适用于RANS的数值程序也能用到LES上，如果你有一份RANS有限体积法代码，那么很容易转成LES代码。实际上LES代码要比RANS代码更简单。</em><br>并给出了RANS与LES代码的对比:<br>|   &ensp;  |<strong>RANS</strong>|<strong>LES</strong>|<br>|—|—–|——|<br>|Domain|2D or 3D|always 3D|<br>|Time Domain|steady or unsteady|always unsteady|<br>|Space discretization|2nd order upwind|central differncing|<br>|Time discretization|1st order|2nd order|<br>|Turbulence model|more than 2-equations| 0- or 1-equation|<br>在代码的改造上给出了一下建议:</p>
-<ul>
-<li><em>LES中对于扩散项要求较高，需要用二阶(或者更高阶)的中心差分格式防止额外的数值耗散</em></li>
-<li><em>时间格式也应该没有耗散，因此可以用二阶的时间格式如C-N格式</em>—<br>title: OpenFOAM中的LES湍流模型及其植入<br>date: 2017-07-15 11:49:03<br>tags: LES<br>categories: OpenFOAM<br>mathjax: true<br>comments: true</li>
-</ul>
-<hr>
-<h2 id="OpenFOAM中的LES湍流模型及其插入-1"><a href="#OpenFOAM中的LES湍流模型及其插入-1" class="headerlink" title="OpenFOAM中的LES湍流模型及其插入"></a>OpenFOAM中的LES湍流模型及其插入</h2><h2 id="OpenFOAM中湍流模型的分类-1"><a href="#OpenFOAM中湍流模型的分类-1" class="headerlink" title="OpenFOAM中湍流模型的分类"></a>OpenFOAM中湍流模型的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，[Lund][1]给出了一个隐式滤波的定义方法:<br><em>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中</em>。</p>
-<h2 id="隐式LES与RANS在代码上的区别-1"><a href="#隐式LES与RANS在代码上的区别-1" class="headerlink" title="隐式LES与RANS在代码上的区别"></a>隐式LES与RANS在代码上的区别</h2><p>根据这段话实际上LES在代码的植入上只需要修改N-S方程的扩散项即可，<a href="http://www.tfd.chalmers.se/~lada/postscript_files/solids-and-fluids_turbulent-flow_turbulence-modelling.pdf" target="_blank" rel="external">Lars Davidson</a>[187-188]教授也提到：<br><em>任何适用于RANS的数值程序也能用到LES上，如果你有一份RANS有限体积法代码，那么很容易转成LES代码。实际上LES代码要比RANS代码更简单。</em><br>并给出了RANS与LES代码的对比:<br>|   &ensp;  |<strong>RANS</strong>|<strong>LES</strong>|<br>|—|—–|——|<br>|Domain|2D or 3D|always 3D|<br>|Time Domain|steady or unsteady|always unsteady|<br>|Space discretization|2nd order upwind|central differncing|<br>|Time discretization|1st order|2nd order|<br>|Turbulence model|more than 2-equations| 0- or 1-equation|<br>在代码的改造上给出了一下建议:</p>
-<ul>
-<li><em>LES中对于扩散项要求较高，需要用二阶(或者更高阶)的中心差分格式防止额外的数值耗散</em></li>
-<li><em>时间格式也应该没有耗散，因此可以用二阶的时间格式如C-N格式</em></li>
-</ul>
-
-          
+          <hr>
+<h2 id="LES程序的分类"><a href="#LES程序的分类" class="headerlink" title="LES程序的分类"></a>LES程序的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，<a href="http://www.sciencedirect.com/science/article/pii/S0898122103900198" title="T. S. Lund, The Use of Explicit Filters in Large Eddy Simulation. Computers and Mathematics with Applications 46, 603-616, 2003." target="_blank" rel="external">Lund</a>给出了一个隐式滤波的定义方法:</p>
+<blockquote>
+<p>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中。 </p>
+</blockquote>
+<p>在OpenFOAM的代码除了dynamic模型外，并不存在显示滤波的植入。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/15/OpenFOAM中的LES湍流模型及其植入/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

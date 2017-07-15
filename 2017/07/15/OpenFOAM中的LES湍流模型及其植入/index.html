@@ -115,17 +115,17 @@
 
 
 
-<meta name="description" content="OpenFOAM中的LES湍流模型及其插入OpenFOAM中湍流模型的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，[Lund][1]给出了一个隐式滤波的定义方法:隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（s">
+<meta name="description" content="LES程序的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求">
 <meta name="keywords" content="LES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenFOAM中的LES湍流模型及其植入">
 <meta property="og:url" content="http://nevermorph.github.io/2017/07/15/OpenFOAM中的LES湍流模型及其植入/index.html">
 <meta property="og:site_name" content="nevermorph-&gt;CFD">
-<meta property="og:description" content="OpenFOAM中的LES湍流模型及其插入OpenFOAM中湍流模型的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，[Lund][1]给出了一个隐式滤波的定义方法:隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（s">
-<meta property="og:updated_time" content="2017-07-15T04:52:20.821Z">
+<meta property="og:description" content="LES程序的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求">
+<meta property="og:updated_time" content="2017-07-15T07:54:04.939Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenFOAM中的LES湍流模型及其植入">
-<meta name="twitter:description" content="OpenFOAM中的LES湍流模型及其插入OpenFOAM中湍流模型的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，[Lund][1]给出了一个隐式滤波的定义方法:隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（s">
+<meta name="twitter:description" content="LES程序的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求">
 
 
 
@@ -426,19 +426,61 @@
       
 
       
-        <h2 id="OpenFOAM中的LES湍流模型及其插入"><a href="#OpenFOAM中的LES湍流模型及其插入" class="headerlink" title="OpenFOAM中的LES湍流模型及其插入"></a>OpenFOAM中的LES湍流模型及其插入</h2><h2 id="OpenFOAM中湍流模型的分类"><a href="#OpenFOAM中湍流模型的分类" class="headerlink" title="OpenFOAM中湍流模型的分类"></a>OpenFOAM中湍流模型的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，[Lund][1]给出了一个隐式滤波的定义方法:<br><em>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中</em>。</p>
-<h2 id="隐式LES与RANS在代码上的区别"><a href="#隐式LES与RANS在代码上的区别" class="headerlink" title="隐式LES与RANS在代码上的区别"></a>隐式LES与RANS在代码上的区别</h2><p>根据这段话实际上LES在代码的植入上只需要修改N-S方程的扩散项即可，<a href="http://www.tfd.chalmers.se/~lada/postscript_files/solids-and-fluids_turbulent-flow_turbulence-modelling.pdf" target="_blank" rel="external">Lars Davidson</a>[187-188]教授也提到：<br><em>任何适用于RANS的数值程序也能用到LES上，如果你有一份RANS有限体积法代码，那么很容易转成LES代码。实际上LES代码要比RANS代码更简单。</em><br>并给出了RANS与LES代码的对比:<br>|   &ensp;  |<strong>RANS</strong>|<strong>LES</strong>|<br>|—|—–|——|<br>|Domain|2D or 3D|always 3D|<br>|Time Domain|steady or unsteady|always unsteady|<br>|Space discretization|2nd order upwind|central differncing|<br>|Time discretization|1st order|2nd order|<br>|Turbulence model|more than 2-equations| 0- or 1-equation|<br>在代码的改造上给出了一下建议:</p>
-<ul>
-<li><em>LES中对于扩散项要求较高，需要用二阶(或者更高阶)的中心差分格式防止额外的数值耗散</em></li>
-<li><em>时间格式也应该没有耗散，因此可以用二阶的时间格式如C-N格式</em>—<br>title: OpenFOAM中的LES湍流模型及其植入<br>date: 2017-07-15 11:49:03<br>tags: LES<br>categories: OpenFOAM<br>mathjax: true<br>comments: true</li>
-</ul>
-<hr>
-<h2 id="OpenFOAM中的LES湍流模型及其插入-1"><a href="#OpenFOAM中的LES湍流模型及其插入-1" class="headerlink" title="OpenFOAM中的LES湍流模型及其插入"></a>OpenFOAM中的LES湍流模型及其插入</h2><h2 id="OpenFOAM中湍流模型的分类-1"><a href="#OpenFOAM中湍流模型的分类-1" class="headerlink" title="OpenFOAM中湍流模型的分类"></a>OpenFOAM中湍流模型的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，[Lund][1]给出了一个隐式滤波的定义方法:<br><em>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中</em>。</p>
-<h2 id="隐式LES与RANS在代码上的区别-1"><a href="#隐式LES与RANS在代码上的区别-1" class="headerlink" title="隐式LES与RANS在代码上的区别"></a>隐式LES与RANS在代码上的区别</h2><p>根据这段话实际上LES在代码的植入上只需要修改N-S方程的扩散项即可，<a href="http://www.tfd.chalmers.se/~lada/postscript_files/solids-and-fluids_turbulent-flow_turbulence-modelling.pdf" target="_blank" rel="external">Lars Davidson</a>[187-188]教授也提到：<br><em>任何适用于RANS的数值程序也能用到LES上，如果你有一份RANS有限体积法代码，那么很容易转成LES代码。实际上LES代码要比RANS代码更简单。</em><br>并给出了RANS与LES代码的对比:<br>|   &ensp;  |<strong>RANS</strong>|<strong>LES</strong>|<br>|—|—–|——|<br>|Domain|2D or 3D|always 3D|<br>|Time Domain|steady or unsteady|always unsteady|<br>|Space discretization|2nd order upwind|central differncing|<br>|Time discretization|1st order|2nd order|<br>|Turbulence model|more than 2-equations| 0- or 1-equation|<br>在代码的改造上给出了一下建议:</p>
-<ul>
-<li><em>LES中对于扩散项要求较高，需要用二阶(或者更高阶)的中心差分格式防止额外的数值耗散</em></li>
-<li><em>时间格式也应该没有耗散，因此可以用二阶的时间格式如C-N格式</em></li>
-</ul>
+        <hr>
+<h2 id="LES程序的分类"><a href="#LES程序的分类" class="headerlink" title="LES程序的分类"></a>LES程序的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，<a href="http://www.sciencedirect.com/science/article/pii/S0898122103900198" title="T. S. Lund, The Use of Explicit Filters in Large Eddy Simulation. Computers and Mathematics with Applications 46, 603-616, 2003." target="_blank" rel="external">Lund</a>给出了一个隐式滤波的定义方法:</p>
+<blockquote>
+<p>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中。 </p>
+</blockquote>
+<p>在OpenFOAM的代码除了dynamic模型外，并不存在显示滤波的植入。<br><a id="more"></a></p>
+<h2 id="隐式LES与RANS在代码上的区别"><a href="#隐式LES与RANS在代码上的区别" class="headerlink" title="隐式LES与RANS在代码上的区别"></a>隐式LES与RANS在代码上的区别</h2><p>根据这段话实际上LES在代码的植入上只需要修改N-S方程的扩散项即可，<a href="http://www.tfd.chalmers.se/~lada/postscript_files/solids-and-fluids_turbulent-flow_turbulence-modelling.pdf" target="_blank" rel="external">Lars Davidson</a>[187-188]教授也提到：</p>
+<blockquote>
+<p>任何适用于RANS的数值程序也能用到LES上，如果你有一份RANS有限体积法代码，那么很容易转成LES代码。实际上LES代码要比RANS代码更简单。 </p>
+</blockquote>
+<p>并给出了RANS与LES代码的对比:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>RANS</strong></th>
+<th><strong>LES</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td>steady or unsteady</td>
+<td>always unsteady</td>
+</tr>
+<tr>
+<td>Space discretization</td>
+<td>2nd order upwind</td>
+<td>central differncing</td>
+</tr>
+<tr>
+<td>Time discretization</td>
+<td>1st order</td>
+<td>2nd order </td>
+</tr>
+<tr>
+<td>Turbulence model</td>
+<td>more than 2-equations</td>
+<td>0- or 1-equation</td>
+</tr>
+</tbody>
+</table>
+<p>在代码的改造上给出了一下建议:</p>
+<blockquote>
+<ol>
+<li><p>LES中对于扩散项要求较高，需要用二阶(或者更高阶)的中心差分格式防止额外的数值耗散</p>
+</li>
+<li><p>时间格式也应该没有耗散，因此可以用二阶的时间格式如C-N格式</p>
+</li>
+<li><p>加入SGS模型。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="LES模型的基本方程"><a href="#LES模型的基本方程" class="headerlink" title="LES模型的基本方程"></a>LES模型的基本方程</h2><p>对笛卡尔坐标系下的连续方程进行滤波得到:<br>$$<br>\frac{\partial{\rho}}{\partial{t}}+\nabla \cdot (\rho \mathbf{\overline{U}}) =0<br>\tag{1}<br>$$<br>再对笛卡尔坐标系下的Navier-Stokes方程进行滤波得到:<br>$$<br>\frac{\partial{\mathbf{\overline{U}}}}{\partial{t}} + \nabla \cdot (\overline{\mathbf{U}\mathbf{U}}) = -\nabla\frac{\overline{p}}{\rho} + \nabla \cdot[\nu(\nabla \overline{\mathbf{U}})+(\nabla \overline{\mathbf{U}}^{\mathrm{T}})]<br>\tag{2}<br>$$<br>把对流项拆分$\nabla\cdot(\overline{\mathbf{U}\mathbf{U}}) = \nabla\cdot(\overline{\mathbf{U}}\mathop{\overline{\mathbf{U}}}) + (\nabla\cdot(\overline{\mathbf{U}\mathbf{U}})  - \nabla\cdot(\overline{\mathbf{U}}\mathop{\overline{\mathbf{U}}}))$,假设$\mathbf{\tau} = \nabla\cdot(\overline{\mathbf{U}}\mathop{\overline{\mathbf{U}}})- \nabla\cdot(\overline{\mathbf{U}\mathbf{U}})$并代入(2)得到:<br>$$<br>\frac{\partial{\mathbf{\overline{U}}}}{\partial{t}} + \nabla\cdot(\overline{\mathbf{U}}\mathop{\overline{\mathbf{U}}}) = -\nabla\frac{\overline{p}}{\rho} + \nabla \cdot[\nu(\nabla \overline{\mathbf{U}})+(\nabla \overline{\mathbf{U}}^{\mathrm{T}})]  + \mathbf{\tau}<br>\tag{3}<br>$$<br>其中$\mathbf{\tau}$被称为亚格子应力(SGS),通常通过<a href="https://www.sharcnet.ca/Software/Ansys/17.0/en-us/help/flu_th/flu_th_sec_les_sgs_models.html" target="_blank" rel="external">下面方程</a>进行模化:<br>$$<br>\tau_{ij} = \underbrace{\tau_{ij} -\frac{1}{3}\tau_{kk}\delta_{ij} }_{\text{deviatoric}} + \underbrace{\frac{1}{3}\tau_{kk}\delta_{ij}}_{\text{isotropic}}<br>\tag{4}<br>$$<br>其中deviatoric部分根据Smagorinsky模型假设有:<br>$$<br>\tau_{ij}-\frac{1}{3}\tau_{kk}\delta_{ij}=-2\mu_{sgs}(\overline{D_{ij}}-\frac{1}{3}\overline{D_{kk}}\delta_{ij})=-2\mu_{sgs}(\mathbf{dev}(\overline{D_{ij}}))<br>\tag{5}<br>$$<br>其中$\overline{D_{ij}}$为平均的剪切变形率，其公式为$\mathbf{\overline{D}}=\frac{1}{2}(\nabla \mathbf{\overline{U}} + \nabla\mathbf{\overline{U}}^{\mathrm{T}}$),根据(1)当流体为不可压缩流体时有$\overline{D_{kk}}=\frac{\partial{\overline{U}}}{\partial{x}} + \frac{\partial{\overline{V}}}{\partial{y}} + \frac{\partial{\overline{W}}}{\partial{z}}= \nabla\cdot(\overline{\mathbf{U}}) = 0$,那么(5)也可以写为:</p>
+<p>$$<br>\tau_{ij}-\frac{1}{3}\tau_{kk}\delta_{ij}=-2\mu_{sgs}(\overline{D_{ij}})<br>\tag{6}<br>$$<br>在OpenFOAM中，可压缩与不可压缩的LES统一起来了，实际上我们用的就是公式(5)。</p>
 
       
     </div>
@@ -625,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenFOAM中的LES湍流模型及其插入"><span class="nav-number">1.</span> <span class="nav-text">OpenFOAM中的LES湍流模型及其插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenFOAM中湍流模型的分类"><span class="nav-number">2.</span> <span class="nav-text">OpenFOAM中湍流模型的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式LES与RANS在代码上的区别"><span class="nav-number">3.</span> <span class="nav-text">隐式LES与RANS在代码上的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenFOAM中的LES湍流模型及其插入-1"><span class="nav-number">4.</span> <span class="nav-text">OpenFOAM中的LES湍流模型及其插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenFOAM中湍流模型的分类-1"><span class="nav-number">5.</span> <span class="nav-text">OpenFOAM中湍流模型的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式LES与RANS在代码上的区别-1"><span class="nav-number">6.</span> <span class="nav-text">隐式LES与RANS在代码上的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LES程序的分类"><span class="nav-number">1.</span> <span class="nav-text">LES程序的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#隐式LES与RANS在代码上的区别"><span class="nav-number">2.</span> <span class="nav-text">隐式LES与RANS在代码上的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LES模型的基本方程"><span class="nav-number">3.</span> <span class="nav-text">LES模型的基本方程</span></a></li></ol></div>
             
 
           </div>
