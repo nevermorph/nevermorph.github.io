@@ -434,7 +434,7 @@
 <blockquote>
 <p>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中。 </p>
 </blockquote>
-<p>在OpenFOAM的代码除了dynamic模型外，并不存在显示滤波的植入。<br>
+<p>在OpenFOAM的代码除了dynamic模型外，并不存在显示滤波的植入，实际上对于如Smagorinsky模型、WALE模型，任何滤波函数算出来的结果都是一样的。<br>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/07/15/OpenFOAM中的LES湍流模型及其植入/#more" rel="contents">
