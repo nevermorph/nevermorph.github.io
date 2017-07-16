@@ -432,7 +432,7 @@
           <hr>
 <h2 id="LES程序的分类"><a href="#LES程序的分类" class="headerlink" title="LES程序的分类"></a>LES程序的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，<a href="http://www.sciencedirect.com/science/article/pii/S0898122103900198" title="T. S. Lund, The Use of Explicit Filters in Large Eddy Simulation. Computers and Mathematics with Applications 46, 603-616, 2003." target="_blank" rel="external">Lund</a>给出了一个隐式滤波的定义方法:</p>
 <blockquote>
-<p>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的SGS应力（sub-scale stresses），之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中。 </p>
+<p>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中。 </p>
 </blockquote>
 <p>在OpenFOAM的代码除了dynamic模型外，并不存在显示滤波的植入。<br>
           <!--noindex-->
