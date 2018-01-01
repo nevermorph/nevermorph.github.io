@@ -122,12 +122,12 @@
 <meta property="og:url" content="http://nevermorph.github.io/2017/08/02/湍流模拟常见物理量/index.html">
 <meta property="og:site_name" content="nirvana-&gt;zen">
 <meta property="og:description" content="统计平均量与湍流描述 实验中得到的湍流信号是一个随机量，因此常常使用统计学概念描述一些物理现象，下面是一些统计量和其物理概念:">
-<meta property="og:image" content="http://nevermorph.github.io/G:/github/blog/hexo/source/_posts/integralTime.PNG">
-<meta property="og:updated_time" content="2017-08-21T13:29:36.435Z">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/006UHDfIly1fn1fd7vbymj30al057t8l.jpg">
+<meta property="og:updated_time" content="2018-01-01T13:26:23.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="湍流模拟常用数学公式">
 <meta name="twitter:description" content="统计平均量与湍流描述 实验中得到的湍流信号是一个随机量，因此常常使用统计学概念描述一些物理现象，下面是一些统计量和其物理概念:">
-<meta name="twitter:image" content="http://nevermorph.github.io/G:/github/blog/hexo/source/_posts/integralTime.PNG">
+<meta name="twitter:image" content="https://wx1.sinaimg.cn/mw1024/006UHDfIly1fn1fd7vbymj30al057t8l.jpg">
 
 
 
@@ -443,7 +443,7 @@
 <p>$$<br>f*g=\mathscr{F}^{-1}\{  \mathscr{F}\{f\}\mathscr{F}\{g\} \}<br>\tag{8}<br>$$</p>
 <h3 id="互相换-cross-correlation"><a href="#互相换-cross-correlation" class="headerlink" title="互相换(cross-correlation)"></a>互相换(cross-correlation)</h3><p>的定义为:<br>$$<br>f\star g = \int_{-\infty}^{\infty}f^{*}(\tau)g(t+\tau)d\tau<br>\tag{9}<br>$$<br>其中$f^{*}$为$f$的共轭复数，根据互相关定理:<br>$$<br>f\star g =\mathscr{F}^{-1}\{  \mathscr{F}^{*}\{f\}\mathscr{F}\{g\} \}<br>\tag{10}<br>$$<br>当$f=g$的时候，$f\star f$被称为<strong>自相关(auto-correlation)</strong>，(10)即为:<br>$$<br>f\star f=\int_{-\infty}^{\infty}f^{}(\tau)(t+\tau)d\tau<br>\tag{11}<br>$$<br>根据互相关定理(11)即为:<br>$$<br>f\star f=\mathscr{F}^{-1}\{\mathscr{F}^{*}\{f\}   \mathscr{F}\{f\}    \}=\mathscr{F}^{-1}\{     |\mathscr{F}\{f\}|^2      \}<br>\tag{12}<br>$$</p>
 <h3 id="相关性-correlation-与积分尺度-integral-scale"><a href="#相关性-correlation-与积分尺度-integral-scale" class="headerlink" title="相关性(correlation)与积分尺度(integral scale)"></a>相关性(correlation)与积分尺度(integral scale)</h3><p>相关性其实与协方差(5)紧密相关，描述了一个变量在不同时间、空间的相关性。相关性常常写作模化的形式:模化一个变量的<strong>相关系数(correlation coefficient)</strong>,最常用的有<strong>自相关系数(autocorrelation coefficient)</strong>和<strong>两点相关系数(two-point correlation coefficient)</strong>。<br>自相关系数的定义为:<br>$$<br>\rho_{i}(\tau)=\frac{\overline{ u’ _{i}(t,\mathbf{x})u’ _{i}(t+\tau,\mathbf{x})    }}{\overline{u’^{2} _{i} }}<br>\tag{13}<br>$$<br>其中$\tau$为时间变量，自相关系数也应该是对称即:<br>$$<br>\rho({\tau})=\rho({-\tau})<br>$$<br>并且位于-1(perfect correlation)到1(perfect anti-correlation)之间。<br>两点相关系数的定义类似于自相关系数为:<br>$$<br>\rho_{ij}(\mathbf{r})=\frac{\overline{u’ _{i}(t,\mathbf{x})u’ _{i}(\mathbf{x}+\mathbf{r})}}{\sqrt{\overline{ u’^{2}_{i}(\mathbf{x}) }}    \sqrt{\overline{ u’^{2}_{i}(\mathbf{x} + \mathbf{r}) }}     }<br>\tag{14}<br>$$<br>其中$\mathbf{r}$即为两点的矢量距离。</p>
-<h3 id="时间积分尺度-integral-time-scale"><a href="#时间积分尺度-integral-time-scale" class="headerlink" title="时间积分尺度(integral time scale)"></a>时间积分尺度(integral time scale)</h3><p>的定义为自相关系数$\rho(\tau)$(式13)的积分<br>$$<br>T_{i}=\int_{0}^{\infty}\rho_{i}(\tau)d\tau<br>\tag{15}<br>$$<br>如图<span itemprop="image" itemscope="" itemtype="http://schema.org/ImageObject"><img itemprop="url image" src="/G:\github\blog\hexo\source\_posts\integralTime.PNG" class="full-image" alt="alt" title="integral time scale"><meta itemprop="width" content="auto"><meta itemprop="height" content="auto"></span></p>
+<h3 id="时间积分尺度-integral-time-scale"><a href="#时间积分尺度-integral-time-scale" class="headerlink" title="时间积分尺度(integral time scale)"></a>时间积分尺度(integral time scale)</h3><p>的定义为自相关系数$\rho(\tau)$(式13)的积分<br>$$<br>T_{i}=\int_{0}^{\infty}\rho_{i}(\tau)d\tau<br>\tag{15}<br><img src="https://wx1.sinaimg.cn/mw1024/006UHDfIly1fn1fd7vbymj30al057t8l.jpg" alt="时间积分出尺度"></p>
 
       
     </div>
@@ -671,8 +671,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
