@@ -122,7 +122,7 @@
 <meta property="og:url" content="https://nevermorph.github.io/2018/01/18/Gauss-Quadrature/index.html">
 <meta property="og:site_name" content="nirvana-&gt;zen">
 <meta property="og:description" content="Gaussian Quadrature 高斯积分在CFD甚至有限元分析中，常常会要求计算积分，而对于特殊函数的积分常常很难得到理论解，在实际计算中常常利用的是数值方法，这里介绍一种精度很高，且计算量很小的方法:高斯积分。">
-<meta property="og:updated_time" content="2018-01-18T12:14:13.424Z">
+<meta property="og:updated_time" content="2018-01-18T12:16:27.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gauss Quadrature">
 <meta name="twitter:description" content="Gaussian Quadrature 高斯积分在CFD甚至有限元分析中，常常会要求计算积分，而对于特殊函数的积分常常很难得到理论解，在实际计算中常常利用的是数值方法，这里介绍一种精度很高，且计算量很小的方法:高斯积分。">
@@ -437,7 +437,7 @@
 
       
         <h2 id="Gaussian-Quadrature-高斯积分"><a href="#Gaussian-Quadrature-高斯积分" class="headerlink" title="Gaussian Quadrature 高斯积分"></a>Gaussian Quadrature 高斯积分</h2><p>在CFD甚至有限元分析中，常常会要求计算积分，而对于<strong>特殊函数</strong>的积分常常很难得到理论解，在实际计算中常常利用的是数值方法，这里介绍一种精度很高，且计算量很小的方法:高斯积分。<br><a id="more"></a></p>
-<h1 id="在-1，1-上的积分"><a href="#在-1，1-上的积分" class="headerlink" title="在[-1，1]上的积分"></a>在[-1，1]上的积分</h1><p>高斯积分的定义非常简单，先介绍在[-1,1]的积分域上的积分，因为在任意区间上的积分可以比较容易的根据[-1,1]上的积分得到，高斯积分可以表示为:<br>$$<br>\int_1^-1 f(x)dx<br>\tag{1}<br>$$</p>
+<h1 id="在-1，1-上的积分"><a href="#在-1，1-上的积分" class="headerlink" title="在[-1，1]上的积分"></a>在[-1，1]上的积分</h1><p>高斯积分的定义非常简单，先介绍在[-1,1]的积分域上的积分，因为在任意区间上的积分可以比较容易的根据[-1,1]上的积分得到，高斯积分可以表示为:<br>$$<br>\int<em>1^{-1} f(x)dx = \sum</em>{i=1}^{n}{\omega}<em>{i}f(x</em>{i})<br>\tag{1}<br>$$</p>
 
       
     </div>
