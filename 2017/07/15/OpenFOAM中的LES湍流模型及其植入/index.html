@@ -99,7 +99,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Turbulence Model,LES," />
+  <meta name="keywords" content="LES,Turbulence Model," />
 
 
 
@@ -115,17 +115,17 @@
 
 
 
-<meta name="description" content="LES程序的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤">
-<meta name="keywords" content="Turbulence Model,LES">
+<meta name="description" content="LES程序的分类在CFD计算中根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤波是">
+<meta name="keywords" content="LES,Turbulence Model">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenFOAM中的LES湍流模型及其植入">
 <meta property="og:url" content="https://nevermorph.github.io/2017/07/15/OpenFOAM中的LES湍流模型及其植入/index.html">
 <meta property="og:site_name" content="nirvana-&gt;zen">
-<meta property="og:description" content="LES程序的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤">
-<meta property="og:updated_time" content="2018-01-01T14:05:08.057Z">
+<meta property="og:description" content="LES程序的分类在CFD计算中根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤波是">
+<meta property="og:updated_time" content="2018-01-18T11:43:55.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenFOAM中的LES湍流模型及其植入">
-<meta name="twitter:description" content="LES程序的分类在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤">
+<meta name="twitter:description" content="LES程序的分类在CFD计算中根据滤波函数的植入方法，会把LES程序分为 implicit filterint和explicit filtering方法。OpenFOAM采用的是前一种也就是隐式滤波方法，Lund给出了一个隐式滤波的定义方法:  隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤波是">
 
 
 
@@ -437,11 +437,11 @@
 
       
         <hr>
-<h2 id="LES程序的分类"><a href="#LES程序的分类" class="headerlink" title="LES程序的分类"></a>LES程序的分类</h2><p>在CFD计算中我们根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，<a href="http://www.sciencedirect.com/science/article/pii/S0898122103900198" title="T. S. Lund, The Use of Explicit Filters in Large Eddy Simulation. Computers and Mathematics with Applications 46, 603-616, 2003." target="_blank" rel="external">Lund</a>给出了一个隐式滤波的定义方法:</p>
+<h2 id="LES程序的分类"><a href="#LES程序的分类" class="headerlink" title="LES程序的分类"></a>LES程序的分类</h2><p>在CFD计算中根据滤波函数的植入方法，会把LES程序分为 <strong>implicit filterint</strong>和<strong>explicit filtering</strong>方法。OpenFOAM采用的是前一种也就是隐式滤波方法，<a href="http://www.sciencedirect.com/science/article/pii/S0898122103900198" title="T. S. Lund, The Use of Explicit Filters in Large Eddy Simulation. Computers and Mathematics with Applications 46, 603-616, 2003." target="_blank" rel="external">Lund</a>给出了一个隐式滤波的定义方法:</p>
 <blockquote>
 <p>隐式滤波程序直接写出滤波后的Navier-Stokes方程并代入了假设的sub-scale stresses，之后直接对这个方程进行求解。而实际上滤波是通过网格的截止尺寸来完成滤波的。这种方法被视为隐式滤波，因为滤波操作实际上根本没有出现在求解的过程中。 </p>
 </blockquote>
-<p>其实也就是说利用我们<strong>计算得到的结果极为网格内的平均值</strong>来进行滤波，在OpenFOAM的代码除了dynamic模型外，并不存在显示滤波的植入，实际上对于如Smagorinsky模型、WALE模型，任何滤波函数算出来的结果都是一样的。<br><a id="more"></a></p>
+<p>其实也就是说利用<strong>计算得到的结果极为网格内的平均值</strong>来进行滤波，在OpenFOAM的代码除了dynamic模型外，并不存在显示滤波的植入，实际上对于如Smagorinsky模型、WALE模型，任何滤波函数算出来的结果都是一样的。<br><a id="more"></a></p>
 <h2 id="隐式LES与RANS在代码上的区别"><a href="#隐式LES与RANS在代码上的区别" class="headerlink" title="隐式LES与RANS在代码上的区别"></a>隐式LES与RANS在代码上的区别</h2><p>根据这段话实际上LES在代码的植入上只需要修改N-S方程的扩散项即可，<a href="http://www.tfd.chalmers.se/~lada/postscript_files/solids-and-fluids_turbulent-flow_turbulence-modelling.pdf" target="_blank" rel="external">Lars Davidson</a>[187-188]教授也提到：</p>
 <blockquote>
 <p>任何适用于RANS的数值程序也能用到LES上，如果你有一份RANS有限体积法代码，那么很容易转成LES代码。实际上LES代码要比RANS代码更简单。 </p>
@@ -526,9 +526,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Turbulence-Model/" rel="tag"><i class="fa fa-tag"></i> Turbulence Model</a>
-          
             <a href="/tags/LES/" rel="tag"><i class="fa fa-tag"></i> LES</a>
+          
+            <a href="/tags/Turbulence-Model/" rel="tag"><i class="fa fa-tag"></i> Turbulence Model</a>
           
         </div>
       
@@ -632,7 +632,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -643,7 +643,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -654,7 +654,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
