@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="统计平均量与湍流描述 实验中得到的湍流信号是一个随机量，因此常常使用统计学概念描述一些物理现象，下面是一些统计量和其物理概念:">
+<meta name="keywords" content="Math,Turbulence">
+<meta property="og:type" content="article">
+<meta property="og:title" content="湍流模拟常用数学公式">
+<meta property="og:url" content="https://nevermorph.github.io/2017/08/02/湍流模拟常见物理量/index.html">
+<meta property="og:site_name" content="nirvana-&gt;zen">
+<meta property="og:description" content="统计平均量与湍流描述 实验中得到的湍流信号是一个随机量，因此常常使用统计学概念描述一些物理现象，下面是一些统计量和其物理概念:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://wx1.sinaimg.cn/mw1024/006UHDfIly1fn1fd7vbymj30al057t8l.jpg">
+<meta property="og:updated_time" content="2018-01-01T14:06:15.209Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="湍流模拟常用数学公式">
+<meta name="twitter:description" content="统计平均量与湍流描述 实验中得到的湍流信号是一个随机量，因此常常使用统计学概念描述一些物理现象，下面是一些统计量和其物理概念:">
+<meta name="twitter:image" content="https://wx1.sinaimg.cn/mw1024/006UHDfIly1fn1fd7vbymj30al057t8l.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="https://nevermorph.github.io/2017/08/02/湍流模拟常见物理量/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>湍流模拟常用数学公式 | nirvana->zen</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">nirvana->zen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">金光烁屋 锐气盈庭</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://nevermorph.github.io/2017/08/02/湍流模拟常见物理量/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="nirvana. w.l.">
+      <meta itemprop="description" content="金光烁屋 锐气盈庭">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nirvana->zen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">湍流模拟常用数学公式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-02 22:41:15" itemprop="dateCreated datePublished" datetime="2017-08-02T22:41:15+08:00">2017-08-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-01-01 22:06:15" itemprop="dateModified" datetime="2018-01-01T22:06:15+08:00">2018-01-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/数学相关/" itemprop="url" rel="index"><span itemprop="name">数学相关</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="统计平均量与湍流描述"><a href="#统计平均量与湍流描述" class="headerlink" title="统计平均量与湍流描述"></a>统计平均量与湍流描述</h2><hr>
+<p>实验中得到的湍流信号是一个随机量，因此常常使用统计学概念描述一些物理现象，下面是一些统计量和其物理概念:<br><a id="more"></a></p>
+<h3 id="雷诺平均-Reynolds-Average"><a href="#雷诺平均-Reynolds-Average" class="headerlink" title="雷诺平均(Reynolds Average)"></a>雷诺平均(Reynolds Average)</h3><p>雷诺分解将任意瞬时的速度分解脉动量与平均量如(1)所示:<br>$$<br>u=\overline{u}+u’<br>\tag{1}<br>$$<br>其中$\overline{u}$为u的平均值，$u’$即每时刻的脉动值。</p>
+<hr>
+<h3 id="期望值-expect-value"><a href="#期望值-expect-value" class="headerlink" title="期望值(expect value)"></a>期望值(expect value)</h3><p>变量$X$的期望值其公式为:<br>$$<br>E[X] = \frac{1}{N}\sum_{k=0}^{N}X_{k}<br>\tag{2}<br>$$<br>速度的期望值即(1)中得到的平均值,对于也就是:<br>$$<br>\overline{u_{i}}=E[u_{i}]<br>$$</p>
+<h3 id="方差-variance"><a href="#方差-variance" class="headerlink" title="方差(variance)"></a>方差(variance)</h3><p>变量$X$的方差公式为：<br>$$<br>Var[X] = \frac{1}{N}\sum_{k=0}^{N}(X_{k} - E[X])^{2}<br>\tag{3}<br>$$<br>根据(1)上式中$X_{k}-E[X]$即为变量$X$的脉动值$X’$,对于脉动速度$u’_{i}$:<br>$$<br>\overline{u’_{i}}=Var[u’_{i}]<br>$$<br>在RANS model中我们的湍动能$k$即$k=\frac{1}{2}(u’^{2}+v’^{2}+w’^{2})$，其也满足$\overline{k}=\frac{1}{2}Var[u]+\frac{1}{2}Var[v]+\frac{1}{2}Var[w]$.</p>
+<h3 id="标准差-standard-deviation"><a href="#标准差-standard-deviation" class="headerlink" title="标准差(standard deviation)"></a>标准差(standard deviation)</h3><p>标准差即为方差的开方：<br>$$<br>\sigma_{X}=\sqrt{Var[X]}<br>\tag{4}<br>$$</p>
+<h3 id="方差-covarance"><a href="#方差-covarance" class="headerlink" title="方差(covarance)"></a>方差(covarance)</h3><p>协方差的定义为:<br>$$<br>Cov[X,Y]=\frac{1}{N}\sum_{k=0}^{N}(X_{k} - E[X])(Y_{k}-E[Y])<br>\tag{5}<br>$$<br>根据(1),对于任意两个速度分量的协方差$Cov[u_{i},u_{j}]$有<br>$$<br>Cov[u_{i},u_{j}]=\frac{1}{N}\sum_{k=0}^{N}u_{i}u_{j}=<br>\overline{u_{ij}}=\mathbf{R}<br>$$<br>也就是雷诺应力</p>
+<hr>
+<h2 id="卷积与积分尺度"><a href="#卷积与积分尺度" class="headerlink" title="卷积与积分尺度"></a>卷积与积分尺度</h2><h3 id="卷积-convolution"><a href="#卷积-convolution" class="headerlink" title="卷积(convolution)"></a>卷积(convolution)</h3><p>对函数$f$求$g$的卷积为:</p>
+<p>$$<br>f*g=\int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau<br>\tag{6}<br>$$<br>卷积可以视为对一个函数求加权积。<br>根据卷积定理,有:</p>
+<p>$$<br>\mathscr{F}\{ f*g\}=\mathscr{F}\{f\}\mathscr{F}\{g\}<br>\tag{7}<br>$$<br>其中$\mathscr{F}$为<strong>傅里叶变换(Fourier transform)</strong>,对(7)式求傅里叶变换得:</p>
+<p>$$<br>f*g=\mathscr{F}^{-1}\{  \mathscr{F}\{f\}\mathscr{F}\{g\} \}<br>\tag{8}<br>$$</p>
+<h3 id="互相换-cross-correlation"><a href="#互相换-cross-correlation" class="headerlink" title="互相换(cross-correlation)"></a>互相换(cross-correlation)</h3><p>的定义为:<br>$$<br>f\star g = \int_{-\infty}^{\infty}f^{*}(\tau)g(t+\tau)d\tau<br>\tag{9}<br>$$<br>其中$f^{*}$为$f$的共轭复数，根据互相关定理:<br>$$<br>f\star g =\mathscr{F}^{-1}\{  \mathscr{F}^{*}\{f\}\mathscr{F}\{g\} \}<br>\tag{10}<br>$$<br>当$f=g$的时候，$f\star f$被称为<strong>自相关(auto-correlation)</strong>，(10)即为:<br>$$<br>f\star f=\int_{-\infty}^{\infty}f^{}(\tau)(t+\tau)d\tau<br>\tag{11}<br>$$<br>根据互相关定理(11)即为:<br>$$<br>f\star f=\mathscr{F}^{-1}\{\mathscr{F}^{*}\{f\}   \mathscr{F}\{f\}    \}=\mathscr{F}^{-1}\{     |\mathscr{F}\{f\}|^2      \}<br>\tag{12}<br>$$</p>
+<h3 id="相关性-correlation-与积分尺度-integral-scale"><a href="#相关性-correlation-与积分尺度-integral-scale" class="headerlink" title="相关性(correlation)与积分尺度(integral scale)"></a>相关性(correlation)与积分尺度(integral scale)</h3><p>相关性其实与协方差(5)紧密相关，描述了一个变量在不同时间、空间的相关性。相关性常常写作模化的形式:模化一个变量的<strong>相关系数(correlation coefficient)</strong>,最常用的有<strong>自相关系数(autocorrelation coefficient)</strong>和<strong>两点相关系数(two-point correlation coefficient)</strong>。<br>自相关系数的定义为:<br>$$<br>\rho_{i}(\tau)=\frac{\overline{ u’ _{i}(t,\mathbf{x})u’ _{i}(t+\tau,\mathbf{x})    }}{\overline{u’^{2} _{i} }}<br>\tag{13}<br>$$<br>其中$\tau$为时间变量，自相关系数也应该是对称即:<br>$$<br>\rho({\tau})=\rho({-\tau})<br>$$<br>并且位于-1(perfect correlation)到1(perfect anti-correlation)之间。<br>两点相关系数的定义类似于自相关系数为:<br>$$<br>\rho_{ij}(\mathbf{r})=\frac{\overline{u’ _{i}(t,\mathbf{x})u’ _{i}(\mathbf{x}+\mathbf{r})}}{\sqrt{\overline{ u’^{2}_{i}(\mathbf{x}) }}    \sqrt{\overline{ u’^{2}_{i}(\mathbf{x} + \mathbf{r}) }}     }<br>\tag{14}<br>$$<br>其中$\mathbf{r}$即为两点的矢量距离。</p>
+<h3 id="时间积分尺度-integral-time-scale"><a href="#时间积分尺度-integral-time-scale" class="headerlink" title="时间积分尺度(integral time scale)"></a>时间积分尺度(integral time scale)</h3><p>的定义为自相关系数$\rho(\tau)$(式13)的积分<br>$$<br>T_{i}=\int_{0}^{\infty}\rho_{i}(\tau)d\tau<br>\tag{15}<br>$$<br>如下图所示。<br><img src="https://wx1.sinaimg.cn/mw1024/006UHDfIly1fn1fd7vbymj30al057t8l.jpg" alt="时间积分出尺度"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Math/" rel="tag"># Math</a>
+          
+            <a href="/tags/Turbulence/" rel="tag"># Turbulence</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/23/LES进口边界条件的设置/" rel="next" title="LES进口边界条件的设置">
+                <i class="fa fa-chevron-left"></i> LES进口边界条件的设置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/01/壁面条件/" rel="prev" title="壁面条件">
+                壁面条件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">nirvana. w.l.</p>
+              <p class="site-description motion-element" itemprop="description">金光烁屋 锐气盈庭</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计平均量与湍流描述"><span class="nav-number">1.</span> <span class="nav-text">统计平均量与湍流描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#雷诺平均-Reynolds-Average"><span class="nav-number">1.1.</span> <span class="nav-text">雷诺平均(Reynolds Average)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#期望值-expect-value"><span class="nav-number">1.2.</span> <span class="nav-text">期望值(expect value)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方差-variance"><span class="nav-number">1.3.</span> <span class="nav-text">方差(variance)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准差-standard-deviation"><span class="nav-number">1.4.</span> <span class="nav-text">标准差(standard deviation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方差-covarance"><span class="nav-number">1.5.</span> <span class="nav-text">方差(covarance)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积与积分尺度"><span class="nav-number">2.</span> <span class="nav-text">卷积与积分尺度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积-convolution"><span class="nav-number">2.1.</span> <span class="nav-text">卷积(convolution)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互相换-cross-correlation"><span class="nav-number">2.2.</span> <span class="nav-text">互相换(cross-correlation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关性-correlation-与积分尺度-integral-scale"><span class="nav-number">2.3.</span> <span class="nav-text">相关性(correlation)与积分尺度(integral scale)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间积分尺度-integral-time-scale"><span class="nav-number">2.4.</span> <span class="nav-text">时间积分尺度(integral time scale)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nirvana. w.l.</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.2</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
